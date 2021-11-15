@@ -1,13 +1,13 @@
 package pgdp.strings;
 
 public class MyString {
-    private char[] data;
+    public char[] data = null;
     private MyString next;
 
     public MyString(char[] data) {
         if (data != null)
             this.data = data;
-        next = this;
+             next = null;
     }
 
     public int length() {
@@ -21,7 +21,10 @@ public class MyString {
         if (other == null) return false;
         MyString k = other;
         for (MyString t = this; t != null; t = t.next) {
-            if (k.data != t.data) return false;
+            if(t.data.length != k.data.length) return false;
+            for (int i=0;i<data.length;i++){
+                if(t.data[i]!=k.data[i])   return false;
+                }
             k = k.next;
         }
         return true;
