@@ -2,39 +2,73 @@ package pgdp.strings;
 
 public class MyString {
     public char[] data = null;
-    private MyString next;
-
+    public MyString next;
     public MyString(char[] data) {
         if (data != null)
             this.data = data;
-             next = null;
-    }
+             this.next = null;
 
+    }
+    public MyString(char[] data, MyString x) {
+            this.data = data;
+        next = x;
+
+    }
     public int length() {
         int l = 0;
         for (MyString t = this; t != null; t = t.next)
             l += t.data.length;
         return l;
     }
+    public String toString ()
+    {
+        String s="";
+        for (MyString t=this;t!=null;t=t.next)
+        {
+            for (int i=0;i<t.data.length;i++)
+                s+=t.data[i];
+        }
+        return s;
+    }
+    public void concat (char [] data)
+    {
+     if(data!=null) {
+         MyString t =this;
+         while (t.next!=null) {
+             t = t.next;
+         }
+         t.next = new MyString(data);
+     }
+    }
+
 
     public boolean equals(MyString other) {
         if (other == null) return false;
         MyString k = other;
+        int ind = 0;
+        int len = k.data.length;
+        int len1 = 0;
         for (MyString t = this; t != null; t = t.next) {
-            if(t.data.length != k.data.length) return false;
-            for (int i=0;i<data.length;i++){
-                if(t.data[i]!=k.data[i])   return false;
+            len1 += t.data.length;
+            for (int i = 0; i < t.data.length; i++) {
+                if (len < len1) {
+                    k = k.next;
+                    ind = 0;
+                   if(k!=null) len += k.data.length;
+                else return false;}
+                    if (t.data[i] != k.data[ind]) return false;
+                    ind++;
                 }
-            k = k.next;
+
+            }
+            return true;
         }
-        return true;
-    }
 
     public int indexOf(char c) {
         int ind = 0;
         for (MyString t = this; t != null; t = t.next) {
             for (int i = 0; i < t.data.length; i++) {
-                if (data[i] == c) {
+                if (t.data[i] == c) {
                     return ind;
                 }
                 ind++;
@@ -49,7 +83,7 @@ public class MyString {
         int naghdind = -1;
         for (MyString t = this; t != null; t = t.next) {
             for (int i = 0; i < t.data.length; i++) {
-                if (data[i] == c) {
+                if (t.data[i] == c) {
                     naghdind = ind;
                 }
                 ind++;
