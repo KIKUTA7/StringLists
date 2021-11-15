@@ -1,20 +1,58 @@
 package pgdp.strings;
 
 public class MyString {
-    private  char [] data;
-    private  MyString next = null;
-    public MyString (char [] data)
-    {
-        if(data!=null)
-        this.data = data;
+    private char[] data;
+    private MyString next;
+
+    public MyString(char[] data) {
+        if (data != null)
+            this.data = data;
         next = this;
     }
-    public int length ()
-    {
+
+    public int length() {
         int l = 0;
-        for (MyString t =this;t!=null;t=t.next)
-            l+=this.data.length;
+        for (MyString t = this; t != null; t = t.next)
+            l += t.data.length;
         return l;
+    }
+
+    public boolean equals(MyString other) {
+        if (other == null) return false;
+        MyString k = other;
+        for (MyString t = this; t != null; t = t.next) {
+            if (k.data != t.data) return false;
+            k = k.next;
+        }
+        return true;
+    }
+
+    public int indexOf(char c) {
+        int ind = 0;
+        for (MyString t = this; t != null; t = t.next) {
+            for (int i = 0; i < t.data.length; i++) {
+                if (data[i] == c) {
+                    return ind;
+                }
+                ind++;
+            }
+        }
+        return -1;
+
+    }
+    public int lastIndexOf (char c)
+    {
+        int ind = 0;
+        int naghdind = -1;
+        for (MyString t = this; t != null; t = t.next) {
+            for (int i = 0; i < t.data.length; i++) {
+                if (data[i] == c) {
+                    naghdind = ind;
+                }
+                ind++;
+            }
+        }
+        return naghdind;
     }
 
 }
