@@ -50,17 +50,15 @@ public class MyString {
         MyString k = other;
         int ind = 0;
         int len = k.data.length;
-        int len1 = 0;
         for (MyString t = this; t != null; t = t.next) {
-            len1 += t.data.length;
             for (int i = 0; i < t.data.length; i++) {
-                if (len < len1) {
+                if (len == 0) {
                     k = k.next;
                     ind = 0;
                    if(k!=null) len += k.data.length;
                 else return false;}
                     if (t.data[i] != k.data[ind]) return false;
-                    ind++;
+                    ind++;len --;
                 }
 
             }
