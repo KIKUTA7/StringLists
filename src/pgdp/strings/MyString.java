@@ -1,8 +1,10 @@
 package pgdp.strings;
 
+import java.util.Arrays;
+
 public class MyString {
-    public char[] data = null;
-    public MyString next;
+    private char[] data = null;
+    private MyString next;
     public MyString(char[] data) {
         if (data != null)
             this.data = data;
@@ -22,13 +24,14 @@ public class MyString {
     }
     public String toString ()
     {
-        String s="";
+        char [] arr = new char [length()];
+        int len =0;
         for (MyString t=this;t!=null;t=t.next)
         {
             for (int i=0;i<t.data.length;i++)
-                s+=t.data[i];
+            {arr[len] = t.data[i];len++;}
         }
-        return s;
+        return new String(arr);
     }
     public void concat (char [] data)
     {
