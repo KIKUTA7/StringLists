@@ -3,23 +3,24 @@ package pgdp.strings;
 import java.util.Arrays;
 
 public class MyString {
-    private char[] data = null;
+    private char[] data;
     private MyString next;
     public MyString(char[] data) {
         if (data != null)
-            this.data = data;
-             this.next = null;
+        { this.data = data;
+             this.next = null;}
 
     }
     public MyString(char[] data, MyString x) {
-            this.data = data;
-        next = x;
+           if(data!=null)
+           {this.data = data;
+              next = x;}
 
     }
     public int length() {
         int l = 0;
         for (MyString t = this; t != null; t = t.next)
-            l += t.data.length;
+            if(t.data!=null) l += t.data.length;
         return l;
     }
     public String toString ()
@@ -28,14 +29,20 @@ public class MyString {
         int len =0;
         for (MyString t=this;t!=null;t=t.next)
         {
-            for (int i=0;i<t.data.length;i++)
-            {arr[len] = t.data[i];len++;}
+            if(t.data!=null) {
+                for (int i = 0; i < t.data.length; i++) {
+                    arr[len] = t.data[i];
+                    len++;
+                }
+            }
         }
         return new String(arr);
     }
     public void concat (char [] data)
     {
+
      if(data!=null) {
+         if(this.data==null && this.next==null) {this.data = data;return;}
          MyString t =this;
          while (t.next!=null) {
              t = t.next;
@@ -49,30 +56,40 @@ public class MyString {
         if (other == null) return false;
         MyString k = other;
         int ind = 0;
-        int len = k.data.length;
-        for (MyString t = this; t != null; t = t.next) {
-            for (int i = 0; i < t.data.length; i++) {
-                if (len == 0) {
-                    k = k.next;
-                    ind = 0;
-                   if(k!=null) len += k.data.length;
-                else return false;}
-                    if (t.data[i] != k.data[ind]) return false;
-                    ind++;len --;
+        if(k.data!=null) {
+            int len = k.data.length;
+            for (MyString t = this; t != null; t = t.next) {
+                if(t.data!=null) {
+                    for (int i = 0; i < t.data.length; i++) {
+                        if (len == 0) {
+                            k = k.next;
+                            ind = 0;
+                            if (k != null) len += k.data.length;
+                            else return false;
+                        }
+                        if (t.data[i] != k.data[ind]) return false;
+                        ind++;
+                        len--;
+                    }
                 }
-
             }
-            return true;
+//           if(this.data==null) return false;
+//            return true;
+            return !(this.data==null && this.next==null);
+        }
+        return this.data==null && this.next==null;
         }
 
     public int indexOf(char c) {
         int ind = 0;
         for (MyString t = this; t != null; t = t.next) {
-            for (int i = 0; i < t.data.length; i++) {
-                if (t.data[i] == c) {
-                    return ind;
+            if(t.data!=null) {
+                for (int i = 0; i < t.data.length; i++) {
+                    if (t.data[i] == c) {
+                        return ind;
+                    }
+                    ind++;
                 }
-                ind++;
             }
         }
         return -1;
@@ -83,11 +100,13 @@ public class MyString {
         int ind = 0;
         int naghdind = -1;
         for (MyString t = this; t != null; t = t.next) {
-            for (int i = 0; i < t.data.length; i++) {
-                if (t.data[i] == c) {
-                    naghdind = ind;
+            if(t.data!=null) {
+                for (int i = 0; i < t.data.length; i++) {
+                    if (t.data[i] == c) {
+                        naghdind = ind;
+                    }
+                    ind++;
                 }
-                ind++;
             }
         }
         return naghdind;
