@@ -11,6 +11,23 @@ public class MyString {
              this.next = null;}
 
     }
+
+    public char[] getData() {
+        return data;
+    }
+
+    public MyString getNext() {
+        return next;
+    }
+
+    public void setData(char[] data) {
+        this.data = data;
+    }
+
+    public void setNext(MyString next) {
+        this.next = next;
+    }
+
     public MyString(char[] data, MyString x) {
            if(data!=null)
            {this.data = data;
